@@ -51,9 +51,31 @@ async function run() {
       res.send(result);
     });
 
+    // send product data to database
     app.post("/allProducts", async (req, res) => {
       const product = req.body;
       const result = await allBrandsProductsCollection.insertOne(product);
+      res.send(result);
+    });
+
+    // cart
+    app.get("/cart", async (req, res) => {
+      const result = await cartCollection.find().toArray();
+      res.send(result);
+    });
+
+    // delete from cart
+    app.delete("/cart/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: id };
+      const result = await cartCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // send cart data to database
+    app.post("/cart", async (req, res) => {
+      const cart = req.body;
+      const result = await cartCollection.insertOne(cart);
       res.send(result);
     });
 
