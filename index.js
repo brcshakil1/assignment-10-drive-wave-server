@@ -51,6 +51,32 @@ async function run() {
       res.send(result);
     });
 
+    // update data
+    app.put("/products/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateProduct = req.body;
+
+      const updateDoc = {
+        $set: {
+          photo: updateProduct.photo,
+          name: updateProduct.name,
+          brandName: updateProduct.brandName,
+          type: updateProduct.type,
+          price: updateProduct.price,
+          shortDescription: updateProduct.shortDescription,
+          rating: updateProduct.rating,
+        },
+      };
+      const result = await allBrandsProductsCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
+
     // send product data to database
     app.post("/allProducts", async (req, res) => {
       const product = req.body;
