@@ -124,7 +124,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("DriveWave's SERVER SITE IS RUNNING");
+  res.send("DriveWave's SERVER SITE IS RUNNING...");
 });
 
 app.listen(port, () => {
